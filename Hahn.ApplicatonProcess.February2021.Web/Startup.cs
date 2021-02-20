@@ -1,3 +1,4 @@
+using Hahn.ApplicatonProcess.February2021.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<AssetContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
