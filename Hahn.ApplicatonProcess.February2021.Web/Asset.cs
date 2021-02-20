@@ -11,6 +11,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         {
             HQ, Store1, Store2, Store3, MaintenanceStation
         }
+
         public EN_DEPARTMENT Department { get; set; }
         string CountryOfDepartment { get; set; }
         string EMailAdressOfDepartment { get; set; }
