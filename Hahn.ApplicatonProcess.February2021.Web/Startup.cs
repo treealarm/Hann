@@ -1,4 +1,5 @@
 using Hahn.ApplicatonProcess.February2021.Data;
+using Hahn.ApplicatonProcess.February2021.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<IRepository<Asset>, AssetRepositoryImp>();
             services.AddDbContext<AssetContext>();
         }
 

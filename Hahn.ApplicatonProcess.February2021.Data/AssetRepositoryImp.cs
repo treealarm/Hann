@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Collections.Generic;
 
 namespace Hahn.ApplicatonProcess.February2021.Data
 {
@@ -13,7 +14,7 @@ namespace Hahn.ApplicatonProcess.February2021.Data
         Task<T> GetById(int id);
         Task<bool> Delete(int id);
         Task<(bool, int)> Update(int id, T item);
-
+        Task<IEnumerable<T>> GetAll();
     }
 
     public class AssetRepositoryImp : IRepository<Asset>
@@ -65,6 +66,11 @@ namespace Hahn.ApplicatonProcess.February2021.Data
             db_row.CopyFrom(item);
             await _assetContext.SaveChangesAsync();
             return (true, db_row.ID);
+        }
+        public async Task<IEnumerable<Asset>> GetAll()
+        {
+            var ret = await _assetContext.Assets.ToListAsync();
+            return ret;
         }
     }
 }

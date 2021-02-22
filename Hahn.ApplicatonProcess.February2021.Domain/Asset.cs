@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hahn.ApplicatonProcess.February2021.Domain
 {
+    
     public class Asset
     {
+        [Key]
         public int ID { get; set; }
         public string AssetName { get; set; }
 
@@ -13,10 +16,10 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
         }
 
         public EN_DEPARTMENT Department { get; set; }
-        string CountryOfDepartment { get; set; }
-        string EMailAdressOfDepartment { get; set; }
-        DateTime PurchaseDate { get; set; } //in UTC.
-        bool broken { get; set; } = false;// – false if not provided.
+        public string CountryOfDepartment { get; set; }
+        public string EMailAdressOfDepartment { get; set; }
+        public DateTime PurchaseDate { get; set; } //in UTC.
+        public bool broken { get; set; } = false;// – false if not provided.
 
         public void CopyFrom(Asset copy_it)
         {

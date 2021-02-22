@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hahn.ApplicatonProcess.February2021.Data;
+using Hahn.ApplicatonProcess.February2021.Domain;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,21 +15,18 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
     {
 
         private readonly ILogger<AssetController> _logger;
+        private readonly IRepository<Asset> _repo;
 
-        public AssetController(ILogger<AssetController> logger)
+        public AssetController(ILogger<AssetController> logger, IRepository<Asset> repo)
         {
             _logger = logger;
+            _repo = repo;
         }
 
         [HttpGet]
-        public IEnumerable<Asset> Get()
+        public async Task<IEnumerable<Asset>> Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new Asset
-            {
-                ID = index
-            })
-            .ToArray();
+            return await _repo.GetAll();
         }
     }
 }
