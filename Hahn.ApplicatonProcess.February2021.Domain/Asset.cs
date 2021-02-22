@@ -23,11 +23,6 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
 
         public void CopyFrom(Asset copy_it)
         {
-            if(copy_it.ID > 0)
-            {
-                ID = copy_it.ID;
-            }
-            
             AssetName = copy_it.AssetName;
             Department = copy_it.Department;
             CountryOfDepartment = copy_it.CountryOfDepartment;

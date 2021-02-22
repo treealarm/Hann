@@ -12,6 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Swashbuckle.AspNetCore.Filters;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Reflection;
 
 namespace Hahn.ApplicatonProcess.February2021.Web
 {
@@ -30,6 +33,21 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             services.AddControllers();
             services.AddScoped<IRepository<Asset>, AssetRepositoryImp>();
             services.AddDbContext<AssetContext>();
+
+            services.AddSwaggerGen(setUpAction =>
+            {
+                setUpAction.SwaggerDoc("APISpecification", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "AssetApi",
+                    Version = "1.0"
+                });
+                setUpAction.ExampleFilters();
+
+                var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //setUpAction.IncludeXmlComments(xmlCommentsFile);
+                //setUpAction.AddFluentValidationRules();
+            });
+            services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +57,15 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(setUpAction =>
+            {
+                setUpAction.SwaggerEndpoint("/swagger/APISpecification/swagger.json", "Applicant API");
+                setUpAction.RoutePrefix = "";
+
+            });
 
             app.UseHttpsRedirection();
 

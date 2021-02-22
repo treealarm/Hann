@@ -34,7 +34,15 @@ namespace Hahn.ApplicatonProcess.February2021.Data
                 return default;
             }
             var new_db_row = await _assetContext.Assets.AddAsync(item);
-            await _assetContext.SaveChangesAsync();
+            try
+            {
+                await _assetContext.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                return default;
+            }
+            
             return new_db_row.Entity;
         }
 
