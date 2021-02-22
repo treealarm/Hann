@@ -12,6 +12,8 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
 {
     [ApiController]
     [Route("February2021Api")]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     public class AssetController : ControllerBase
     {
 

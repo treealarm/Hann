@@ -18,6 +18,50 @@ using System.Reflection;
 
 namespace Hahn.ApplicatonProcess.February2021.Web
 {
+    public class SingleAsset : IExamplesProvider<Asset>
+    {
+        public Asset GetExamples()
+        {
+            return new Asset
+            {
+                AssetName = "Billy",
+                Department = Asset.EN_DEPARTMENT.MaintenanceStation,
+                CountryOfDepartment = "US",
+                EMailAdressOfDepartment = "bill@microsoft.com",
+                PurchaseDate = DateTime.UtcNow,
+                broken = false
+            };
+        }
+    }
+
+    public class MultiAsset : IExamplesProvider<IEnumerable<Asset>>
+    {
+        public IEnumerable<Asset> GetExamples()
+        {
+            return new List<Asset>()
+            {
+                new Asset
+                {
+                    AssetName = "Angela",
+                    Department = Asset.EN_DEPARTMENT.Store1,
+                    CountryOfDepartment = "DE",
+                    EMailAdressOfDepartment = "angela@microsoft.com",
+                    PurchaseDate = DateTime.UtcNow,
+                    broken = false
+                },
+                new Asset
+                {
+                    AssetName = "Gerhard",
+                    Department = Asset.EN_DEPARTMENT.Store2,
+                    CountryOfDepartment = "DE",
+                    EMailAdressOfDepartment = "gerhard@microsoft.com",
+                    PurchaseDate = DateTime.UtcNow,
+                    broken = false
+                }
+            };
+        }
+    }
+    
     public class Startup
     {
         public Startup(IConfiguration configuration)
