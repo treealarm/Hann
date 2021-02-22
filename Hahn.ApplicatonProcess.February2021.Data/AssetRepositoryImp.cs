@@ -8,13 +8,19 @@ using System.Collections.Generic;
 
 namespace Hahn.ApplicatonProcess.February2021.Data
 {
+    public enum EN_RETCODE
+    {
+        OK = 0,
+        FAILED
+    }
     public interface IRepository<T> where T :  class
     {
         Task<T> Create(T item);
         Task<T> GetById(int id);
-        Task<bool> Delete(int id);
-        Task<(bool, int)> Update(int id, T item);
+        Task<EN_RETCODE> Delete(int id);
+        Task<EN_RETCODE> Update(T item);
         Task<IEnumerable<T>> GetAll();
+
     }
 
     public class AssetRepositoryImp : IRepository<Asset>
@@ -46,16 +52,16 @@ namespace Hahn.ApplicatonProcess.February2021.Data
             return new_db_row.Entity;
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<EN_RETCODE> Delete(int id)
         {
             var db_row = await GetById(id);
             if (db_row == null)
             {
-                return false;
+                return EN_RETCODE.FAILED;
             }
             _assetContext.Assets.Remove(db_row);
             await _assetContext.SaveChangesAsync();
-            return true;
+            return EN_RETCODE.OK;
         }
 
         public Task<Asset> GetById(int id)
@@ -63,17 +69,17 @@ namespace Hahn.ApplicatonProcess.February2021.Data
             return  _assetContext.Assets.FirstOrDefaultAsync(t => t.ID == id);
         }
 
-        public async Task<(bool, int)> Update(int id, Asset item)
+        public async Task<EN_RETCODE> Update(Asset item)
         {
-            var db_row = await GetById(id);
+            var db_row = await GetById(item.ID);
             if (db_row == null)
             {
-                return (false, default);
+                return EN_RETCODE.FAILED;
             }
             
             db_row.CopyFrom(item);
             await _assetContext.SaveChangesAsync();
-            return (true, db_row.ID);
+            return EN_RETCODE.OK;
         }
         public async Task<IEnumerable<Asset>> GetAll()
         {

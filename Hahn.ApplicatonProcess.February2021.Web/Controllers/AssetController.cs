@@ -25,6 +25,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllAssets")]
         public IEnumerable<Asset> Get()
         {
             return  _repo.GetAll().Result;
@@ -47,18 +48,69 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("CreateAsset")]
         public ActionResult<Asset> CreateAsset([FromBody] Asset inAsset)
         {
+            if(inAsset.ID > 0)
+            {
+                var tempAsset = _repo.GetById(inAsset.ID).Result;
+                if(tempAsset != null)
+                {
+                    return BadRequest("id already exist");
+                }
+            }
+            
+
             var retAsset = _repo.Create(inAsset).Result;
             if(retAsset == null)
             {
-                return NotFound();
+                return BadRequest("unable to create");
             }
             
             return CreatedAtAction(@"GetById", new { asset_id = retAsset.ID }, retAsset);
         }
 
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Route("UpdateAsset")]
+        public ActionResult UpdateAsset(Asset inAsset)
+        {
+            var tempAsset = _repo.GetById(inAsset.ID).Result;
+            if (tempAsset == null)
+            {
+                return BadRequest("id not exist");
+            }
+
+            var res = _repo.Update(inAsset).Result;
+            if (res != EN_RETCODE.OK)
+            {
+                return BadRequest("update failed");
+            }
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Route("DeleteAsset/{idAsset}")]
+        public ActionResult DeleteAsset(int idAsset)
+        {
+            var tempAsset = _repo.GetById(idAsset).Result;
+            if (tempAsset == null)
+            {
+                return BadRequest("id not exist");
+            }
+
+            var res = _repo.Delete(idAsset).Result;
+            if (res != EN_RETCODE.OK)
+            {
+                return BadRequest("delete failed");
+            }
+
+            return Ok();
+        }
     }
 }
