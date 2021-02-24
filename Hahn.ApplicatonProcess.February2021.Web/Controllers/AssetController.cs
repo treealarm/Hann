@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
@@ -18,12 +19,30 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
     {
 
         private readonly ILogger<AssetController> _logger;
-        private readonly IRepository<Asset> _repo;
+        private readonly IUnitOfWork<Asset> _repo;
 
-        public AssetController(ILogger<AssetController> logger, IRepository<Asset> repo)
+        public AssetController(ILogger<AssetController> logger, IUnitOfWork<Asset> repo)
         {
             _logger = logger;
             _repo = repo;
+        }
+
+        [HttpGet]
+        [Route("GetOSs")]
+        public string GetOperatingSystem()
+        {
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                return "Linux";
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return "Windows";
+            }
+
+            return ("Cannot determine operating system!");
         }
 
         [HttpGet]

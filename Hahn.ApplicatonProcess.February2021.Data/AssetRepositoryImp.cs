@@ -8,20 +8,6 @@ using System.Collections.Generic;
 
 namespace Hahn.ApplicatonProcess.February2021.Data
 {
-    public enum EN_RETCODE
-    {
-        OK = 0,
-        FAILED
-    }
-    public interface IRepository<T> where T :  class
-    {
-        Task<T> Create(T item);
-        Task<T> GetById(int id);
-        Task<EN_RETCODE> Delete(int id);
-        Task<EN_RETCODE> Update(T item);
-        Task<IEnumerable<T>> GetAll();
-
-    }
 
     public class AssetRepositoryImp : IRepository<Asset>
     {
@@ -44,7 +30,7 @@ namespace Hahn.ApplicatonProcess.February2021.Data
             {
                 await _assetContext.SaveChangesAsync();
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return default;
             }

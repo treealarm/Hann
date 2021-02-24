@@ -14,7 +14,19 @@ namespace Hahn.ApplicatonProcess.February2021.Data
         {
 
         }
-        public DbSet<Asset> Assets { get; set; }
+        DbSet<Asset> _Assets = null;
+        
+        public DbSet<Asset> Assets
+        {
+            get
+            {
+                return _Assets;
+            }
+            set
+            {
+                _Assets = value;
+            }
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseInMemoryDatabase("AssetDb");

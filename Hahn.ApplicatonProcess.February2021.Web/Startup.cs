@@ -15,30 +15,33 @@ using System.Threading.Tasks;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
+using FluentValidation.AspNetCore;
 
 namespace Hahn.ApplicatonProcess.February2021.Web
 {
-    public class SingleAsset : IExamplesProvider<Asset>
+    namespace swag_examples
     {
-        public Asset GetExamples()
+        public class SingleAsset : IExamplesProvider<Asset>
         {
-            return new Asset
+            public Asset GetExamples()
             {
-                AssetName = "Billy",
-                Department = Asset.EN_DEPARTMENT.MaintenanceStation,
-                CountryOfDepartment = "US",
-                EMailAdressOfDepartment = "bill@microsoft.com",
-                PurchaseDate = DateTime.UtcNow,
-                broken = false
-            };
+                return new Asset
+                {
+                    AssetName = "Billy",
+                    Department = Asset.EN_DEPARTMENT.MaintenanceStation,
+                    CountryOfDepartment = "US",
+                    EMailAdressOfDepartment = "bill@microsoft.com",
+                    PurchaseDate = DateTime.UtcNow,
+                    broken = false
+                };
+            }
         }
-    }
 
-    public class MultiAsset : IExamplesProvider<IEnumerable<Asset>>
-    {
-        public IEnumerable<Asset> GetExamples()
+        public class MultiAsset : IExamplesProvider<IEnumerable<Asset>>
         {
-            return new List<Asset>()
+            public IEnumerable<Asset> GetExamples()
+            {
+                return new List<Asset>()
             {
                 new Asset
                 {
@@ -59,8 +62,10 @@ namespace Hahn.ApplicatonProcess.February2021.Web
                     broken = false
                 }
             };
+            }
         }
     }
+    
     
     public class Startup
     {
@@ -75,8 +80,12 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
+            services.AddScoped<IUnitOfWork<Asset>, UnitOfWork>();
             services.AddScoped<IRepository<Asset>, AssetRepositoryImp>();
             services.AddDbContext<AssetContext>();
+
+            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Asset>());
 
             services.AddSwaggerGen(setUpAction =>
             {

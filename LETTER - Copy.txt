@@ -1,10 +1,8 @@
 ﻿Dear Danil,
 
-
 thanks for your interest on being a part of our Team at Hahn Softwareentwicklung. To get in touch and see some of your coding skills we have prepared the following task for you.
 
-Send us a solution ( sourcecode ) in an git repository in a ziparchive which contains the following 
-( please do not include nuget packages or npm packages – we will do the dotnet restore and npm install ourself 😊) :
+Send us a solution ( sourcecode ) in an git repository in a ziparchive which contains the following ( please do not include nuget packages or npm packages – we will do the dotnet restore and npm install ourself 😊) :
 
 SolutionName:
 Hahn.ApplicatonProcess.Application
