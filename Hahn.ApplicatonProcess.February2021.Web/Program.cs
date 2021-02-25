@@ -27,6 +27,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
                  .SetBasePath(Directory.GetCurrentDirectory())
                  .AddJsonFile("appsettings.json", false, true)
                  .AddJsonFile("serilog.json", false, true)
+                 .AddJsonFile("Localization.json", false, true)
                  ;
             })
             .ConfigureWebHostDefaults(webBuilder =>
@@ -35,9 +36,9 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             })
             .UseSerilog((hostBuilder, logggerConfig) =>
             {
-
                 logggerConfig.ReadFrom.Configuration(hostBuilder.Configuration);
             })
             ;
+
     }
 }

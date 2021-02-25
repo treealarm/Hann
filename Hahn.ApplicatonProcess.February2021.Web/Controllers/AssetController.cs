@@ -2,6 +2,7 @@
 using Hahn.ApplicatonProcess.February2021.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -20,33 +21,42 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
 
         private readonly ILogger<AssetController> _logger;
         private readonly IUnitOfWork<Asset> _repo;
+        private readonly IConfiguration _config;
 
-        public AssetController(ILogger<AssetController> logger, IUnitOfWork<Asset> repo)
+        public AssetController(ILogger<AssetController> logger, IUnitOfWork<Asset> repo, IConfiguration configuration)
         {
             _logger = logger;
             _repo = repo;
+            _config = configuration;
         }
 
+        string GetLocalizedString(string str_id)
+        {
+            string culture = _config["AppOptions:Culture"];
+            string str = str_id;
+            try
+            {
+                str = _config[culture + ":" + str_id];
+            }
+            catch(Exception)
+            { }
+            return str;
+        }
         [HttpGet]
         [Route("GetOSs")]
         public string GetOperatingSystem()
         {
-
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                _logger.LogInformation("determine Linux");
                 return "Linux";
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                _logger.LogError("unable to create");
-                _logger.LogInformation("determine Windows");
                 return "Windows";
             }
 
-            _logger.LogError("Cannot determine operating system!");
-            return ("Cannot determine operating system!");
+            return GetLocalizedString("unknown_system");
         }
 
         [HttpGet]
@@ -82,7 +92,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
                 var tempAsset = _repo.GetById(inAsset.ID).Result;
                 if(tempAsset != null)
                 {
-                    return BadRequest("id already exist");
+                    return BadRequest(GetLocalizedString("id_already_exists"));
                 }
             }
             
@@ -91,7 +101,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
             if(retAsset == null)
             {
                 _logger.LogError("unable to create");
-                return BadRequest("unable to create");
+                return BadRequest(GetLocalizedString("unable_to_create"));
             }
             
             return CreatedAtAction(@"GetById", new { asset_id = retAsset.ID }, retAsset);
@@ -106,13 +116,15 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
             var tempAsset = _repo.GetById(inAsset.ID).Result;
             if (tempAsset == null)
             {
-                return BadRequest("id not exist");
+                _logger.LogError("id_not_exist");
+                return BadRequest(GetLocalizedString("id_not_exist"));
             }
 
             var res = _repo.Update(inAsset).Result;
             if (res != EN_RETCODE.OK)
             {
-                return BadRequest("update failed");
+                _logger.LogError("update failed");
+                return BadRequest(GetLocalizedString("update_failed"));
             }
 
             return Ok();
@@ -127,13 +139,15 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
             var tempAsset = _repo.GetById(idAsset).Result;
             if (tempAsset == null)
             {
-                return BadRequest("id not exist");
+                _logger.LogError("id not exist");
+                return BadRequest(GetLocalizedString("id_not_exist"));
             }
 
             var res = _repo.Delete(idAsset).Result;
             if (res != EN_RETCODE.OK)
             {
-                return BadRequest("delete failed");
+                _logger.LogError("delete failed");
+                return BadRequest(GetLocalizedString("delete_failed"));
             }
 
             return Ok();

@@ -1,0 +1,12 @@
+{
+  "en-US": {
+    "Welcome": "Welcome",
+    "Hello": "Hello",
+    "unknown_system": "Cannot determine operating system!",
+    "id_already_exists": "id already exists",
+    "unable_to_create": "unable to create",
+    "id_not_exist": "id not exist",
+    "update_failed": "update failed",
+    "delete_failed": "delete failed"
+  }
+}

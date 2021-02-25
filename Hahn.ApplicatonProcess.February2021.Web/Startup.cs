@@ -19,6 +19,8 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using System.Net;
 using Serilog;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Hahn.ApplicatonProcess.February2021.Web
 {
@@ -75,8 +77,9 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            
         }
-
+        
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -112,6 +115,8 @@ namespace Hahn.ApplicatonProcess.February2021.Web
                 //setUpAction.AddFluentValidationRules();
             });
             services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
+
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

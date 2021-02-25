@@ -26,13 +26,5 @@
     "Properties": {
       "Application": "AssetApi"
     }
-  },
-  "Seq": {
-    "ServerUrl": "http://localhost:5341",
-    "ApiKey": "u4phsvX5xEX7quJ2J4th",
-    "MinimumLevel": "Information",
-    "LevelOverride": {
-      "Microsoft": "Warning"
-    }
   }
 }
