@@ -18,7 +18,7 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
         public EN_DEPARTMENT Department { get; set; }
         public string CountryOfDepartment { get; set; }
         public string EMailAdressOfDepartment { get; set; }
-        public DateTime PurchaseDate { get; set; } //in UTC.
+        public DateTime PurchaseDate { get; set; } = DateTime.UtcNow; //in UTC.
         public bool broken { get; set; } = false;// – false if not provided.
 
         public void CopyFrom(Asset copy_it)

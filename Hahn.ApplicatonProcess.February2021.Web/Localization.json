@@ -7,6 +7,11 @@
     "unable_to_create": "unable to create",
     "id_not_exist": "id not exist",
     "update_failed": "update failed",
-    "delete_failed": "delete failed"
+    "delete_failed": "delete failed",
+    "at_least_5": "at least 5",
+    "must_be_valid_enum": "must be valid enum",
+    "must_be_valid_date": "must not be older then one year",
+    "must_be_valid_email": "must be valid email",
+    "invalid_country": " is not a valid country"
   }
 }

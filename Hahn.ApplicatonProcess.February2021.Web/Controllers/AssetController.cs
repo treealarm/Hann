@@ -30,17 +30,10 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
             _config = configuration;
         }
 
+        
         string GetLocalizedString(string str_id)
         {
-            string culture = _config["AppOptions:Culture"];
-            string str = str_id;
-            try
-            {
-                str = _config[culture + ":" + str_id];
-            }
-            catch(Exception)
-            { }
-            return str;
+            return AssetValidator.GetLocalizedString(str_id, _config);
         }
         [HttpGet]
         [Route("GetOSs")]
