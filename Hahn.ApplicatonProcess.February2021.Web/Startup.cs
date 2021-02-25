@@ -16,6 +16,9 @@ using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 using FluentValidation.AspNetCore;
+using FluentValidation;
+using System.Net;
+using Serilog;
 
 namespace Hahn.ApplicatonProcess.February2021.Web
 {
@@ -85,7 +88,15 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             services.AddScoped<IRepository<Asset>, AssetRepositoryImp>();
             services.AddDbContext<AssetContext>();
 
-            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Asset>());
+            services.AddMvc().AddFluentValidation();
+            services.AddTransient<IValidator<Asset>, AssetValidator>();
+            services.AddHttpClient(nameof(CountryValidator), config =>
+            {
+                Uri uri = new Uri(Configuration.GetValue<string>("AppConfig:ValidateCountryUrl"));
+                config.BaseAddress = uri;
+                config.Timeout = new TimeSpan(0, 0, Configuration.GetValue<int>("AppConfig:RequestTimeoutSec"));
+                ServicePoint sp = ServicePointManager.FindServicePoint(uri);
+            });
 
             services.AddSwaggerGen(setUpAction =>
             {
@@ -115,7 +126,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
 
             app.UseSwaggerUI(setUpAction =>
             {
-                setUpAction.SwaggerEndpoint("/swagger/APISpecification/swagger.json", "Applicant API");
+                setUpAction.SwaggerEndpoint("/swagger/APISpecification/swagger.json", "Asset API");
                 setUpAction.RoutePrefix = "";
 
             });
@@ -125,6 +136,8 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             app.UseRouting();
 
             app.UseAuthorization();
+            
+            app.UseSerilogRequestLogging();
 
             app.UseEndpoints(endpoints =>
             {

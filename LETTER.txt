@@ -30,6 +30,7 @@ EMailAdressOfDepartment ( string )
 PurchaseDate (Datetime) - in UTC.
 broken (bool) – false if not provided.
 The WebApi accepts and returns application/json data.
+
 The object and the properties should be validated by fluentValidation ( nuget ) with the following rules:
 AssetName – at least 5 Characters
 Department – must be a valid enumvalue

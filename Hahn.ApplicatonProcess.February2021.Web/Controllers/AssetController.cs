@@ -34,14 +34,18 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
+                _logger.LogInformation("determine Linux");
                 return "Linux";
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
+                _logger.LogError("unable to create");
+                _logger.LogInformation("determine Windows");
                 return "Windows";
             }
 
+            _logger.LogError("Cannot determine operating system!");
             return ("Cannot determine operating system!");
         }
 
@@ -86,6 +90,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
             var retAsset = _repo.Create(inAsset).Result;
             if(retAsset == null)
             {
+                _logger.LogError("unable to create");
                 return BadRequest("unable to create");
             }
             
