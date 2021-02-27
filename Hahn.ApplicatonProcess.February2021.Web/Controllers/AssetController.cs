@@ -77,7 +77,6 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Route("CreateAsset")]
         public ActionResult<Asset> CreateAsset([FromBody] Asset inAsset)
         {
             if(inAsset.ID > 0)
@@ -103,7 +102,6 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [Route("UpdateAsset")]
         public ActionResult UpdateAsset(Asset inAsset)
         {
             var tempAsset = _repo.GetById(inAsset.ID).Result;
@@ -123,10 +121,9 @@ namespace Hahn.ApplicatonProcess.February2021.Web.Controllers
             return Ok();
         }
 
-        [HttpDelete]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [Route("DeleteAsset/{idAsset}")]
+        [HttpDelete("{idAsset}", Name = "DeleteAsset")]
         public ActionResult DeleteAsset(int idAsset)
         {
             var tempAsset = _repo.GetById(idAsset).Result;

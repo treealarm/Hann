@@ -85,8 +85,20 @@ namespace Hahn.ApplicatonProcess.February2021.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("DefaultPolicy",
+                    builder =>
+                    {
+                        builder.WithOrigins("*")
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                    });
+            });
+
             services.AddControllers();
-            
+
+
             services.AddScoped<IUnitOfWork<Asset>, UnitOfWork>();
             services.AddScoped<IRepository<Asset>, AssetRepositoryImp>();
             services.AddDbContext<AssetContext>();
@@ -139,6 +151,7 @@ namespace Hahn.ApplicatonProcess.February2021.Web
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("DefaultPolicy");
 
             app.UseAuthorization();
             

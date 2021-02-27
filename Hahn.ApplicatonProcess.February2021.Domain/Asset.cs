@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Hahn.ApplicatonProcess.February2021.Domain
 {
@@ -7,7 +8,10 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
     public class Asset
     {
         [Key]
+        //[JsonPropertyName("ID")]
         public int ID { get; set; }
+
+        //[JsonPropertyName("AssetName")]
         public string AssetName { get; set; }
 
         public enum EN_DEPARTMENT
@@ -15,10 +19,19 @@ namespace Hahn.ApplicatonProcess.February2021.Domain
             HQ, Store1, Store2, Store3, MaintenanceStation
         }
 
+        //[JsonPropertyName("Department")]
         public EN_DEPARTMENT Department { get; set; }
+
+        //[JsonPropertyName("CountryOfDepartment")]
         public string CountryOfDepartment { get; set; }
+
+        //[JsonPropertyName("EMailAdressOfDepartment")]
         public string EMailAdressOfDepartment { get; set; }
+
+        //[JsonPropertyName("PurchaseDate")]
         public DateTime PurchaseDate { get; set; } = DateTime.UtcNow; //in UTC.
+
+        //[JsonPropertyName("broken")]
         public bool broken { get; set; } = false;// – false if not provided.
 
         public void CopyFrom(Asset copy_it)
