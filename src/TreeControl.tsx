@@ -21,7 +21,7 @@ export function TreeControl() {
 
   var markers:MyObject[] = [];
 
-  for (var i = 0; i < 100; i++)
+  for (var i = 1; i < 200; i++)
   {
 markers.push(
   {
@@ -52,6 +52,7 @@ markers.push(
             }}>
         <List dense sx={{
           width: "100%",
+          minHeight:'100%',
            backgroundColor: 'lightgreen'
             }}>
          {

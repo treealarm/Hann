@@ -5,32 +5,42 @@ import { TreeControl } from './TreeControl.tsx';
 
 function App() {
   return (
-    <div className="App">
-      <Box sx={{ height: '100vh' }}>
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar sx={{ backgroundColor: '#bbbbbb' }} >
-            <Toolbar variant='dense'>APPBAR</Toolbar>
-          </AppBar>
-          <Toolbar variant='dense'>FAKE</Toolbar>
-        </Box>
-        <Grid container sx={{ height: 'calc(100% - 60px)' }}>
-          <Grid item xs={3} sx={{ height: "100%" }}>
+      <Box sx={{ height: '98vh' }}>
+        <Box sx={{ height:'111px', backgroundColor: '#aabbbb' }}>
+          APPBAR
+          </Box> 
+        <Grid 
+        container        
+         sx={{
+            width: '100%',            
+            height: 'calc(100% - 111px)' 
+            }}>
+
+          <Grid item xs={3} sx={{
+           height: '100%'      
+             }}>
             <TreeControl />
           </Grid>
-          <Grid item xs sx={{ minWidth: "100px" }}>
-            <Box sx={{ height: '100%', border:1 }}>
+
+          <Grid item xs sx={{ minWidth: "100px", height:'50%' }}>
+            <Box sx={{
+            width: '99%',            
+            height: '50%',
+            border:1
+            }}>
               BOX
             </Box>
           </Grid>
 
-          <Grid item xs={3} sx={{ height: "100%", border:1 }}>
-            <Paper sx={{ height: "100%", overflow: 'auto', width: "100%" }}>
-              PAPER
-            </Paper>
+          <Grid item xs={3} sx={{ height: '50%'}}>
+            <Box sx={{
+            width: '99%',            
+            height: '50%',
+            border:1
+            }}>BOX2</Box>
           </Grid>
         </Grid>
       </Box>
-    </div>
   );
 }
 
