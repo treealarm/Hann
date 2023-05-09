@@ -6,7 +6,7 @@ import { TreeControl } from './TreeControl.tsx';
 function App() {
   return (
     <div className="App">
-      <Box sx={{ height: '98vh' }}>
+      <Box sx={{ height: '100vh' }}>
         <Box sx={{ flexGrow: 1 }}>
           <AppBar sx={{ backgroundColor: '#bbbbbb' }} >
             <Toolbar variant='dense'>APPBAR</Toolbar>
