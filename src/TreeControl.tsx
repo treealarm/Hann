@@ -26,7 +26,7 @@ export function TreeControl() {
 markers.push(
   {
     id:i.toString(),
-    name:i.toString()
+    name: "item " + i.toString()
   });
   }
 
@@ -40,13 +40,7 @@ markers.push(
             }}>
         <Box sx={{ flexGrow: 1, backgroundColor: 'lightgray' }}>
           <Toolbar variant="dense">
-            <IconButton edge="start">
-              
-            </IconButton>
-            <Box sx={{ flexGrow: 1 }} />
-            <IconButton edge="end">
-              
-            </IconButton>
+            TOOLBAR2
           </Toolbar>
         </Box> 
 
