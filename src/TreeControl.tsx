@@ -31,10 +31,12 @@ markers.push(
   }
 
     return (
-      <Box sx={{ height: '100%' }}>
       <Box sx={{
             width: '100%',            
-            height: '100%'
+            height: '100%',
+            alignItems: 'stretch',
+            display: 'flex',
+            flexDirection: 'column' 
             }}>
         <Box sx={{ flexGrow: 1, backgroundColor: 'lightgray' }}>
           <Toolbar variant="dense">
@@ -50,8 +52,9 @@ markers.push(
 
         <Box sx={{
             width: '100%',            
-            height: 'calc(100% - 60px)',
-            overflow: 'auto'
+            height: '100%',            
+            overflow: 'auto',
+            border:4
             }}>
         <List dense sx={{
           width: "100%",
@@ -85,7 +88,6 @@ markers.push(
         )}
           </List>
           </Box>
-        </Box>
         </Box>
     );
 }
