@@ -33,8 +33,7 @@ markers.push(
     return (
       <Box sx={{
             width: '100%',            
-            height: '100%',
-            alignItems: 'stretch',
+            height: '100%',            
             display: 'flex',
             flexDirection: 'column' 
             }}>
@@ -47,8 +46,7 @@ markers.push(
         <Box sx={{
             width: '100%',            
             height: '100%',            
-            overflow: 'auto',
-            border:4
+            overflow: 'auto'
             }}>
         <List dense sx={{
           width: "100%",
