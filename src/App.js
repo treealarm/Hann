@@ -16,9 +16,9 @@ function App() {
       <Grid container sx={{ height: 'calc(100% - 60px)' }}>
       
         <Grid item xs={3} sx={{ height: "100%"}}>
-            <Paper sx={{ height: "100%", width: "100%" }} >
+            
               <TreeControl/>
-            </Paper>
+           
 
           </Grid>
 

@@ -31,6 +31,7 @@ markers.push(
   }
 
     return (
+      <Box sx={{ height: '100%' }}>
       <Box sx={{
             width: '100%',            
             height: '100%'
@@ -52,7 +53,10 @@ markers.push(
             height: 'calc(100% - 60px)',
             overflow: 'auto'
             }}>
-        <List dense sx={{width: "100%", backgroundColor: 'lightgreen', height:"100%"  }}>
+        <List dense sx={{
+          width: "100%",
+           backgroundColor: 'lightgreen'
+            }}>
          {
           markers?.map((marker, index) =>
             <ListItem
@@ -81,6 +85,7 @@ markers.push(
         )}
           </List>
           </Box>
+        </Box>
         </Box>
     );
 }
