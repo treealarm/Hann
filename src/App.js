@@ -1,47 +1,32 @@
 import logo from './logo.svg';
 import './App.css';
-import { AppBar, Box, Card, CardContent, Grid, Paper, Toolbar, Typography } from '@mui/material';
+import { Box, Card, CardContent} from '@mui/material';
 import { TreeControl } from './TreeControl.tsx';
 
 function App() {
-  return (
-      <Box sx={{ height: '98vh' }}>
-        <Box sx={{ height:'111px', backgroundColor: '#aabbbb' }}>
-          APPBAR
-          </Box> 
-        <Grid 
-        container        
-         sx={{
-            width: '100%',            
-            height: 'calc(100% - 111px)' 
-            }}>
+    return (
+        <Box sx={{ height: '98vh', display:'flex', flexDirection:'column' }}>
 
-          <Grid item xs={3} sx={{
-           height: '100%'      
-             }}>
-            <TreeControl />
-          </Grid>
-
-          <Grid item xs sx={{ minWidth: "100px", height:'50%' }}>
-            <Box sx={{
-            width: '99%',            
-            height: '50%',
-            border:1
-            }}>
-              BOX
+            <Box sx={{ 
+                width: '100%',
+                 height: '100px',
+                 backgroundColor: '#aabbbb' }}
+            >
+                APPBAR
             </Box>
-          </Grid>
-
-          <Grid item xs={3} sx={{ height: '50%'}}>
-            <Box sx={{
-            width: '99%',            
-            height: '50%',
-            border:1
-            }}>BOX2</Box>
-          </Grid>
-        </Grid>
-      </Box>
-  );
+            <Box
+                sx={{
+                    width: '100%',                   
+                    overflow: 'auto',
+                    flex:1
+                }}
+            >
+                <Card sx={{ height: '2000px', backgroundColor: 'lightgreen' }}>
+                    <CardContent>LIST</CardContent>
+                </Card>
+            </Box>
+        </Box>
+    );
 }
 
 export default App;
