@@ -5,40 +5,43 @@ import { TreeControl } from './TreeControl.tsx';
 
 function App() {
     return (
-        <Box sx={{ height: '98vh', display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
 
             <Box sx={{
                 width: '100%',
-                height: '100px',
+                height: '77px',
                 backgroundColor: '#aabbbb'
             }}
             >
                 APPBAR
             </Box>
-            <Box
-                sx={{
+ 
+                <Grid container sx={{ 
+                    height: '100%',
                     width: '100%',
                     overflow: 'auto',
                     flex: 1
-                }}
-            >
-                <Grid container sx={{ height: '100%' }}>
-                    <Grid item xs={3} sx={{ height: "100%" }}>
+                     }}>
+                    <Grid item xs={3} sx={{ height: "99%" }}>
                         <TreeControl />
                     </Grid>
                     <Grid item xs sx={{ minWidth: "100px" }}>
-                        <Box sx={{ height: '100%'}}>
+                        <Box sx={{ height: '99%', border:1}}>
                             BOX
                         </Box>
                     </Grid>
 
-                    <Grid item xs={3} sx={{ height: "100%"}}>
-                        <Box sx={{ height: "100%", overflow: 'auto', width: "100%" }}>
+                    <Grid item xs={3} sx={{ height: "99%"}}>
+                        <Box sx={{ 
+                            height: "100%",
+                             overflow: 'auto',
+                              width: "99%",
+                              border:1 
+                              }}>
                             PAPER
                         </Box>
                     </Grid>
                 </Grid>
-            </Box>
         </Box>
     );
 }
